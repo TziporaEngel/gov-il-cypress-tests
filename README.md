@@ -28,7 +28,7 @@ cypress/
    npm install
    ```
 
-## ✅ Run Tests
+## ✅ Run Tests Locally
 - Open Cypress Test Runner:
    ```bash
    npx cypress open
@@ -36,6 +36,29 @@ cypress/
 - Run all tests in headless mode:
    ```bash
    npx cypress run
+   ```
+
+⚠️ **Important:** Do NOT use the `--record` flag unless you have configured Cypress Dashboard.
+
+## ✅ Optional: Enable Cypress Dashboard Recording
+To record test runs in Cypress Dashboard:
+1. Create an account and project in [Cypress Dashboard](https://www.cypress.io/dashboard/).
+2. Add the `projectId` to your `cypress.config.js`:
+   ```javascript
+   const { defineConfig } = require('cypress')
+
+   module.exports = defineConfig({
+     e2e: {
+       setupNodeEvents(on, config) {
+         // implement node event listeners here
+       },
+     },
+     projectId: 'your-project-id'
+   })
+   ```
+3. Run tests with recording:
+   ```bash
+   npx cypress run --record --key <your-dashboard-key>
    ```
 
 ## ✅ Tech Stack
