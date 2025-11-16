@@ -2,6 +2,11 @@ import SearchPage from '../pageObjects/searchPage';
 
 describe('Gov.il Search Tests', () => {
     beforeEach(() => {
+        cy.intercept('GET', '**', (req) => {
+            req.headers['User-Agent'] = 'Mozilla/5.0 Cypress Test';
+            req.headers['Referer'] = 'https://www.gov.il';
+        });
+
         cy.visit('/');
     });
 
@@ -15,9 +20,8 @@ describe('Gov.il Search Tests', () => {
         cy.contains('דרכון').should('exist');
     });
 
-    it('Shows suggestion דרכון when typing דרכ', () => {
-    SearchPage.searchInput().type('דרכ');
-    cy.get('#searchSuggestions').should('contain.text', 'דרכון');
+    it('Autocomplete', () => {
+        SearchPage.searchInput().type('דרכ');
+        cy.get('#searchSuggestions').should('contain.text', 'דרכון');
     });
-
 });
